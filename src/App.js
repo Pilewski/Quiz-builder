@@ -7,8 +7,13 @@ class App extends Component {
     super()
     this.state = {
       quizzes: [],
-      score: null
+      score: [],
+      submit: ''
     }
+  }
+
+  handleSubmit() {
+
   }
 
   componentDidMount() {
@@ -22,13 +27,14 @@ class App extends Component {
   }
 
   render() {
-    const { quizzes } = this.state
-    let title = quizzes.map((q, index) => {
+    const { quizzes, submit } = this.state
+
+    let title = quizzes.map((q) => {
       return (
         <h1 key='title'>{q.title}</h1>
       )
     })
-    debugger
+
     let questions = quizzes.map(quiz => {
        return quiz.questions.map((question, index) => {
         return question.answers.map((answer, index) => {
@@ -36,14 +42,18 @@ class App extends Component {
             return (
               <div className='question'>
                 <h4>{question.title}</h4>
-                <input type="radio" />
+                <input
+                  name={question.title}
+                  type="radio" />
                 {answer.title}
               </div>
             )
           }
           return (
-            <div className='question'>
-              <input type="radio" />
+            <div className='answer'>
+              <input
+                name={question.title}
+                type="radio" />
               {answer.title}
             </div>
           )
@@ -51,12 +61,19 @@ class App extends Component {
       })
     })
 
-
     return (
       <div className="App">
         {title}
-        {questions}
-        <button>SUBMIT</button>
+        <section>
+          <div className='score'>
+            {this.state.submit}
+          </div>
+          {questions}
+          <button
+            onClick={()=>this.handleSubmit()}>
+            SUBMIT
+          </button>
+        </section>
       </div>
     );
   }
