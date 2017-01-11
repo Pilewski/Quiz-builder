@@ -1,18 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import axios from 'axios'
 import './App.css';
 
 class App extends Component {
+  constructor() {
+    super()
+    this.state = {
+      question: '',
+      score: null
+    }
+  }
+
+  componentDidMount() {
+    axios.get('http://localhost:3001/quizzes')
+    .then((response, error) => {
+      console.log(response);
+      this.setState({
+        quizzes: response.data.quizzes
+      })
+    })
+    .catch(error => console.error('ERROR with GET request', error))
+  }
+
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <h2>QUIZ TIME!!!</h2>
       </div>
     );
   }
