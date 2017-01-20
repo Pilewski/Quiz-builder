@@ -6,6 +6,7 @@ class Question extends Component {
       <div className='question'>
         <h4>{this.props.questiontitle}</h4>
         <input
+          checked={this.props.clear}
           onClick={()=>this.props.radioClick(this.props.id, this.props.score)}
           name={this.props.id}
           type="radio" />

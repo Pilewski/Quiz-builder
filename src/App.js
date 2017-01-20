@@ -10,7 +10,8 @@ class App extends Component {
     this.state = {
       quizzes: [],
       score: {},
-      submit: ''
+      submit: '',
+      clear: null
     }
   }
 
@@ -42,6 +43,8 @@ class App extends Component {
   }
 
   handleChange(question, score) {
+    this.setState({clear: null})
+
     let obj = this.state.score
     obj[question] = score
 
@@ -59,6 +62,10 @@ class App extends Component {
     .catch((error) => {
       console.error(error)
     })
+  }
+
+  clearScore(){
+    this.setState({score: {}, clear: false})
   }
 
   render() {
@@ -80,6 +87,7 @@ class App extends Component {
                 answertitle={answer.title}
                 score={answer.score}
                 id={question.id}
+                clear={this.state.clear}
                 radioClick={()=>this.handleChange(question, answer)}
               />
             )
@@ -87,6 +95,7 @@ class App extends Component {
           return (
             <div className='answer'>
               <input
+                checked={this.state.clear}
                 onClick={()=>this.handleChange(question.id, answer.score)}
                 name={question.id}
                 type="radio" />
@@ -107,19 +116,23 @@ class App extends Component {
           </div>
           {questions}
           <button
+            disabled={questions.length==this.state.score}
             onClick={()=>this.handleSubmit()}>
             SUBMIT
           </button>
+          <button
+            onClick={()=>this.setState({'add':true})}>
+            ADD QUESTION
+          </button>
+          <button
+            onClick={()=>this.handleDelete()}>
+            DELETE QUESTION
+          </button>
+          <button
+            onClick={()=>this.clearScore()}>
+            CLEAR
+          </button>
         </section>
-
-        <button
-          onClick={()=>this.setState({'add':true})}>
-          ADD QUESTION
-        </button>
-        <button
-          onClick={()=>this.handleDelete()}>
-          DELETE LATEST QUESTION
-        </button>
 
         {this.state.add ? <Form submitForm={this.submitForm}/> : ''}
       </div>
