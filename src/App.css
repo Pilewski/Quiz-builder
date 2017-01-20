@@ -23,7 +23,7 @@ section, form {
 
 form {
   float: left;
-  width: auto;
+  border-top: none;
 }
 
 button {

@@ -44,16 +44,19 @@ class Form extends Component {
         <form onSubmit={()=>this.handleSubmit()}>
           <h2>Submit a new question!</h2>
 
-          <label> Title </label>
+          <label> Title: </label>
           <input id='title' onChange={(event)=>this.handleTitle(event)}></input>
 
-          <label> Questions </label>
-          <input id='0' name='score: 0' onChange={(event)=>this.handleAnswers(event)} className='question'></input>
-          <input id='1' name='score: 1' onChange={(event)=>this.handleAnswers(event)} className='question'></input>
-          <input id='2' name='score: 2' onChange={(event)=>this.handleAnswers(event)} className='question'></input>
-          <input id='3' name='score: 3' onChange={(event)=>this.handleAnswers(event)} className='question'></input>
+          <br></br>
+          <label> Questions (score 0-3): </label>
+          <input id='0' onChange={(event)=>this.handleAnswers(event)} className='question'></input>
+          <input id='1' onChange={(event)=>this.handleAnswers(event)} className='question'></input>
+          <input id='2' onChange={(event)=>this.handleAnswers(event)} className='question'></input>
+          <input id='3' onChange={(event)=>this.handleAnswers(event)} className='question'></input>
 
+          <br></br>
           <input id='submit' type='submit' value='Submit'/>
+          <br></br>
         </form>
 
       </div>
