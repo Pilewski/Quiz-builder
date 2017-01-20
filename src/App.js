@@ -52,12 +52,20 @@ class App extends Component {
   }
 
   handleDelete(){
-    let length = this.state.quizzes[0].questions.length - 1
-    const latestID = this.state.quizzes[0].questions[length].id
+    let id = this.state.quizzes[0].questions.pop().id
 
-    axios.delete(`http://localhost:3001/quizzes/1/questions/${latestID}`)
+    axios.delete(`http://localhost:3001/quizzes/1/questions/${id}`)
     .then((response) => {
-      console.log(response)
+      let newQuestions = response.data.quiz;
+      let newQuiz = this.state.quizzes[0];
+
+      newQuiz = Object.assign(newQuiz, {
+        questions: newQuestions
+      });
+
+      this.setState({
+        quizzes: [newQuiz]
+      });
     })
     .catch((error) => {
       console.error(error)
@@ -69,7 +77,7 @@ class App extends Component {
   }
 
   render() {
-    const { quizzes, submit } = this.state
+    let { quizzes, submit } = this.state
 
     let title = quizzes.map((q) => {
       return (
